@@ -5,515 +5,231 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>publiclinks</title>
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: monospace;
-        font-size: 14px;
-        line-height: 1.6;
-        background: #fff;
-        color: #000;
-        padding: 20px;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #000;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-
-      h1 {
-        font-size: 16px;
-        font-weight: normal;
-      }
-
-      a {
-        color: #000;
-      }
-
-      button,
-      input[type="file"]::file-selector-button {
-        font-family: monospace;
-        font-size: 14px;
-        background: #fff;
-        color: #000;
-        border: 1px solid #000;
-        padding: 5px 10px;
-        cursor: pointer;
-      }
-
-      button:hover,
-      input[type="file"]::file-selector-button:hover {
-        background: #000;
-        color: #fff;
-      }
-
-      button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }
-
-      button:disabled:hover {
-        background: #fff;
-        color: #000;
-      }
-
-      .login-section {
-        text-align: center;
-        padding: 100px 20px;
-      }
-
-      .login-section p {
-        margin-bottom: 20px;
-      }
-
-      .upload-section {
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #000;
-      }
-
-      .upload-form {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .file-list {
-        list-style: none;
-      }
-
-      .file-item {
-        padding: 15px 0;
-        border-bottom: 1px solid #ccc;
-      }
-
-      .file-item:last-child {
-        border-bottom: none;
-      }
-
-      .file-name {
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-
-      .file-meta {
-        color: #666;
-        font-size: 12px;
-        margin-bottom: 5px;
-      }
-
-      .file-url {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-top: 5px;
-      }
-
-      .file-url input {
-        font-family: monospace;
-        font-size: 12px;
-        border: 1px solid #ccc;
-        padding: 3px 6px;
-        flex: 1;
-        max-width: 400px;
-      }
-
-      .file-actions {
-        display: flex;
-        gap: 5px;
-      }
-
-      .file-actions button {
-        font-size: 12px;
-        padding: 3px 8px;
-      }
-
-      .btn-delete {
-        border-color: #999;
-        color: #999;
-      }
-
-      .btn-delete:hover {
-        background: #000;
-        color: #fff;
-        border-color: #000;
-      }
-
-      .btn-edit {
-        border-color: #666;
-        color: #666;
-      }
-
-      .btn-edit:hover {
-        background: #000;
-        color: #fff;
-        border-color: #000;
-      }
-
-      .btn-save {
-        border-color: #090;
-        color: #090;
-      }
-
-      .btn-save:hover {
-        background: #090;
-        color: #fff;
-        border-color: #090;
-      }
-
-      .btn-cancel {
-        border-color: #999;
-        color: #999;
-      }
-
-      .btn-cancel:hover {
-        background: #999;
-        color: #fff;
-      }
-
-      .edit-link-form {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 5px;
-      }
-
-      .edit-link-form input {
-        font-family: monospace;
-        font-size: 12px;
-        border: 1px solid #000;
-        padding: 3px 6px;
-        flex: 1;
-        max-width: 200px;
-      }
-
-      .link-key-display {
-        font-size: 12px;
-        color: #666;
-        margin-top: 3px;
-      }
-
-      .link-key-display strong {
-        color: #000;
-      }
-
-      .status {
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #000;
-      }
-
-      .status.error {
-        border-color: #900;
-        color: #900;
-      }
-
-      .status.success {
-        border-color: #090;
-        color: #090;
-      }
-
-      .empty {
-        color: #666;
-        padding: 40px 0;
-        text-align: center;
-      }
-
-      .loading {
-        color: #666;
-      }
-
-      #user-info {
-        font-size: 12px;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font: 14px/1.6 monospace; color: #000; background: #fff; padding: 20px; max-width: 860px; margin: 0 auto; }
+      header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 20px; }
+      h1 { font-size: 16px; font-weight: normal; }
+      a { color: #000; }
+      input { font: inherit; border: 1px solid #000; padding: 5px 8px; min-width: 0; }
+      button { font: inherit; background: #fff; color: #000; border: 1px solid #000; padding: 5px 10px; cursor: pointer; white-space: nowrap; }
+      button:hover { background: #000; color: #fff; }
+      button:disabled { opacity: 0.5; cursor: default; }
+      .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+      form.row input[name=url] { flex: 3 1 260px; }
+      form.row input[name=key] { flex: 1 1 140px; }
+      .muted { color: #666; font-size: 12px; }
+      .status { margin: 10px 0; min-height: 1.6em; }
+      .status.error { color: #900; }
+      .status.ok { color: #090; }
+      .create { padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid #000; }
+      .create .muted { margin-top: 8px; }
+      #filter { width: 100%; margin-bottom: 10px; border-color: #ccc; }
+      ul { list-style: none; }
+      li { padding: 10px 0; border-bottom: 1px solid #ddd; }
+      li .short { font-weight: bold; word-break: break-all; }
+      li .dest { color: #444; font-size: 12px; word-break: break-all; }
+      li .actions { margin-top: 4px; }
+      li .actions button { font-size: 12px; padding: 2px 8px; }
+      li form { margin-top: 6px; }
+      li form input[name=url] { flex: 3 1 240px; font-size: 12px; }
+      li form input[name=key] { flex: 1 1 120px; font-size: 12px; }
+      .center { text-align: center; padding: 100px 20px; }
+      details { margin-top: 30px; border-top: 1px solid #000; padding-top: 10px; }
+      summary { cursor: pointer; }
+      details p, details form { margin: 10px 0; }
+      code { word-break: break-all; }
     </style>
   </head>
   <body>
-    <div id="app">
-      <div class="loading">loading...</div>
-    </div>
+    <div id="app"><p class="muted">loading…</p></div>
 
     <script>
-      const API = {
-        async getMe() {
-          const res = await fetch("/auth/me");
-          if (res.status === 401) return null;
-          return res.json();
-        },
+      const $ = (s, el = document) => el.querySelector(s);
+      const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+      let ME = null;
+      let LINKS = [];
 
-        async getFiles() {
-          const res = await fetch("/api/files");
-          if (!res.ok) throw new Error("Failed to fetch files");
-          return res.json();
-        },
-
-        async uploadFile(file) {
-          const formData = new FormData();
-          formData.append("file", file);
-          const res = await fetch("/api/files", {
-            method: "POST",
-            body: formData,
-          });
-          if (!res.ok) throw new Error("Failed to upload file");
-          return res.json();
-        },
-
-        async deleteFile(id) {
-          const res = await fetch(`/api/files/${id}`, {
-            method: "DELETE",
-          });
-          if (!res.ok) throw new Error("Failed to delete file");
-          return res.json();
-        },
-
-        async updateFileLink(id, key) {
-          const res = await fetch(`/api/files/${id}/link`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ key }),
-          });
-          if (!res.ok) {
-            const error = await res.json();
-            throw new Error(error.detail || "Failed to update link");
-          }
-          return res.json();
-        },
-      };
-
-      function formatBytes(bytes) {
-        if (bytes === 0) return "0 B";
-        const k = 1024;
-        const sizes = ["B", "KB", "MB", "GB"];
-        const i = Math.floor(Math.log(bytes) / Math.log(k));
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
-      }
-
-      function formatDate(dateStr) {
-        const d = new Date(dateStr);
-        return d.toLocaleDateString() + " " + d.toLocaleTimeString();
-      }
-
-      function copyToClipboard(text, btn) {
-        navigator.clipboard.writeText(text).then(() => {
-          const orig = btn.textContent;
-          btn.textContent = "copied!";
-          setTimeout(() => (btn.textContent = orig), 1000);
+      async function api(method, path, body) {
+        const res = await fetch(path, {
+          method,
+          headers: body ? { "Content-Type": "application/json" } : {},
+          body: body ? JSON.stringify(body) : undefined,
         });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.detail || `Request failed (${res.status})`);
+        return data;
       }
+
+      function status(msg, type = "") {
+        const el = $("#status");
+        el.className = `status ${type}`;
+        el.textContent = msg;
+      }
+
+      const shortUrl = (key) => `${ME.short_base_url}/${key}`;
 
       async function init() {
-        const app = document.getElementById("app");
-
-        try {
-          const user = await API.getMe();
-
-          if (!user) {
-            // Not logged in
-            app.innerHTML = `
-                        <header>
-                            <h1>publiclinks</h1>
-                        </header>
-                        <div class="login-section">
-                            <p>upload files. get links.</p>
-                            <a href="/auth/login"><button>sign in with google</button></a>
-                        </div>
-                    `;
-            return;
-          }
-
-          // Logged in - show app
-          app.innerHTML = `
-                    <header>
-                        <h1>publiclinks</h1>
-                        <div id="user-info">
-                            ${user.email} | <a href="/auth/logout">logout</a>
-                        </div>
-                    </header>
-                    <div id="status"></div>
-                    <div class="upload-section">
-                        <form class="upload-form" id="upload-form">
-                            <input type="file" id="file-input" required>
-                            <button type="submit" id="upload-btn">upload</button>
-                        </form>
-                    </div>
-                    <div id="file-list-container">
-                        <div class="loading">loading files...</div>
-                    </div>
-                `;
-
-          // Setup upload form
-          const form = document.getElementById("upload-form");
-          const fileInput = document.getElementById("file-input");
-          const uploadBtn = document.getElementById("upload-btn");
-
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const file = fileInput.files[0];
-            if (!file) return;
-
-            uploadBtn.disabled = true;
-            uploadBtn.textContent = "uploading...";
-            showStatus("Uploading...", "");
-
-            try {
-              await API.uploadFile(file);
-              showStatus("File uploaded!", "success");
-              fileInput.value = "";
-              loadFiles();
-            } catch (err) {
-              showStatus("Upload failed: " + err.message, "error");
-            } finally {
-              uploadBtn.disabled = false;
-              uploadBtn.textContent = "upload";
-            }
-          });
-
-          // Load files
-          loadFiles();
-        } catch (err) {
-          app.innerHTML = `<div class="status error">Error: ${err.message}</div>`;
-        }
-      }
-
-      function showStatus(message, type) {
-        const status = document.getElementById("status");
-        if (!message) {
-          status.innerHTML = "";
+        const res = await fetch("/api/me");
+        if (res.status === 401) {
+          $("#app").innerHTML = `
+            <header><h1>publiclinks</h1></header>
+            <div class="center"><a href="/auth/login"><button>sign in with google</button></a></div>`;
           return;
         }
-        status.innerHTML = `<div class="status ${type}">${message}</div>`;
-        if (type === "success") {
-          setTimeout(() => showStatus("", ""), 3000);
-        }
-      }
-
-      async function loadFiles() {
-        const container = document.getElementById("file-list-container");
-
-        try {
-          const data = await API.getFiles();
-          const files = data.files;
-
-          if (files.length === 0) {
-            container.innerHTML =
-              '<div class="empty">no files yet. upload something!</div>';
-            return;
-          }
-
-          container.innerHTML = `
-                    <ul class="file-list">
-                        ${files
-                          .map(
-                            (f) => `
-                            <li class="file-item" data-id="${f.id}">
-                                <div class="file-name">${escapeHtml(f.filename)}</div>
-                                <div class="file-meta">
-                                    ${formatBytes(f.size_bytes)} · ${f.content_type} · ${formatDate(f.created_at)} · by ${escapeHtml(f.uploader_email)}
-                                </div>
-                                <div class="file-url">
-                                    <input type="text" readonly value="${f.dub_url || f.r2_url}" onclick="this.select()">
-                                    <div class="file-actions">
-                                        <button onclick="copyToClipboard('${f.dub_url || f.r2_url}', this)">copy</button>
-                                        ${f.dub_link_id ? `<button class="btn-edit" onclick="showEditForm(${f.id}, '${escapeHtml(f.dub_key || '')}')">edit</button>` : ''}
-                                        <button class="btn-delete" onclick="deleteFile(${f.id})">delete</button>
-                                    </div>
-                                </div>
-                                ${f.dub_key ? `<div class="link-key-display">short link key: <strong>${escapeHtml(f.dub_key)}</strong></div>` : ''}
-                                <div id="edit-form-${f.id}" style="display: none;"></div>
-                            </li>
-                        `,
-                          )
-                          .join("")}
-                    </ul>
-                `;
-        } catch (err) {
-          container.innerHTML = `<div class="status error">Failed to load files: ${err.message}</div>`;
-        }
-      }
-
-      async function deleteFile(id) {
-        if (!confirm("Delete this file?")) return;
-
-        try {
-          await API.deleteFile(id);
-          showStatus("File deleted", "success");
-          loadFiles();
-        } catch (err) {
-          showStatus("Delete failed: " + err.message, "error");
-        }
-      }
-
-      function showEditForm(fileId, currentKey) {
-        const container = document.getElementById(`edit-form-${fileId}`);
-        if (container.style.display === "block") {
-          container.style.display = "none";
-          container.innerHTML = "";
-          return;
-        }
-        
-        container.style.display = "block";
-        container.innerHTML = `
-          <div class="edit-link-form">
-            <span>new key:</span>
-            <input type="text" id="edit-key-${fileId}" value="${currentKey}" placeholder="enter new key">
-            <button class="btn-save" onclick="saveEditedLink(${fileId})">save</button>
-            <button class="btn-cancel" onclick="cancelEdit(${fileId})">cancel</button>
+        ME = await res.json();
+        $("#app").innerHTML = `
+          <header><h1>publiclinks</h1><span class="muted">${esc(ME.email)} | <a href="/auth/logout">logout</a></span></header>
+          <div class="create">
+            <form class="row" id="create">
+              <input name="url" placeholder="https://destination…" required />
+              <input name="key" placeholder="custom key (optional)" />
+              <button>shorten</button>
+            </form>
+            ${ME.uploads ? `<div class="row muted">or upload a file to get a URL: <input type="file" id="file" /></div>` : ""}
+            <div id="status" class="status"></div>
           </div>
-        `;
-        document.getElementById(`edit-key-${fileId}`).focus();
+          <input id="filter" placeholder="filter…" />
+          <ul id="links"><li class="muted">loading…</li></ul>
+          <details id="keys">
+            <summary>api keys</summary>
+            <p class="muted">For agents/scripts: <code>curl -X POST ${esc(location.origin)}/api/links -H "Authorization: Bearer pl_…" -H "Content-Type: application/json" -d '{"url":"https://…","key":"optional"}'</code></p>
+            <form class="row" id="newkey"><input name="name" placeholder="key name (e.g. my agent)" required /><button>create key</button></form>
+            <div id="newkey-out"></div>
+            <ul id="keylist"></ul>
+          </details>`;
+
+        $("#create").addEventListener("submit", onCreate);
+        $("#filter").addEventListener("input", render);
+        $("#file")?.addEventListener("change", onUpload);
+        $("#keys").addEventListener("toggle", (e) => e.target.open && loadKeys());
+        $("#newkey").addEventListener("submit", onNewKey);
+        await load();
       }
 
-      function cancelEdit(fileId) {
-        const container = document.getElementById(`edit-form-${fileId}`);
-        container.style.display = "none";
-        container.innerHTML = "";
+      async function loadKeys() {
+        const { keys } = await api("GET", "/api/keys");
+        $("#keylist").innerHTML = keys.length
+          ? keys.map((k) => `
+              <li class="row"><span>${esc(k.name)}</span>
+                <span class="muted">created ${esc(k.created_at.slice(0, 10))} · last used ${esc(k.last_used ? k.last_used.slice(0, 10) : "never")}</span>
+                <button data-id="${esc(k.id)}">revoke</button></li>`).join("")
+          : `<li class="muted">no keys</li>`;
+        $("#keylist").querySelectorAll("button").forEach((b) =>
+          b.addEventListener("click", async () => {
+            if (!confirm("Revoke this key? Anything using it will stop working.")) return;
+            await api("DELETE", `/api/keys/${b.dataset.id}`);
+            loadKeys();
+          }));
       }
 
-      async function saveEditedLink(fileId) {
-        const input = document.getElementById(`edit-key-${fileId}`);
-        const newKey = input.value.trim();
-        
-        if (!newKey) {
-          showStatus("Key cannot be empty", "error");
-          return;
-        }
-        
-        const saveBtn = input.parentElement.querySelector('.btn-save');
-        const origText = saveBtn.textContent;
-        saveBtn.disabled = true;
-        saveBtn.textContent = "saving...";
-        
+      async function onNewKey(e) {
+        e.preventDefault();
         try {
-          const result = await API.updateFileLink(fileId, newKey);
-          showStatus(`Link updated to: ${result.dub_url}`, "success");
-          loadFiles();
+          const k = await api("POST", "/api/keys", { name: e.target.name.value });
+          e.target.reset();
+          $("#newkey-out").innerHTML = `<p class="status ok">copy this now, it won't be shown again:<br><input readonly style="width:100%" value="${esc(k.key)}" onclick="this.select()" /></p>`;
+          loadKeys();
         } catch (err) {
-          showStatus("Update failed: " + err.message, "error");
-          saveBtn.disabled = false;
-          saveBtn.textContent = origText;
+          status(err.message, "error");
         }
       }
 
-      function escapeHtml(text) {
-        const div = document.createElement("div");
-        div.textContent = text;
-        return div.innerHTML;
+      async function load() {
+        LINKS = (await api("GET", "/api/links")).links;
+        render();
       }
 
-      init();
+      function render() {
+        const q = $("#filter").value.toLowerCase();
+        const items = LINKS.filter((l) => !q || l.key.toLowerCase().includes(q) || l.url.toLowerCase().includes(q));
+        $("#links").innerHTML = items.length
+          ? items.map((l) => `
+              <li data-key="${esc(l.key)}">
+                <div class="short"><a href="${esc(shortUrl(l.key))}" target="_blank">${esc(shortUrl(l.key))}</a></div>
+                <div class="dest">→ ${esc(l.url)}</div>
+                <div class="muted">${esc(l.created_by || l.source)} · ${esc((l.created_at || "").slice(0, 10))}</div>
+                <div class="row actions">
+                  <button data-act="copy">copy</button>
+                  <button data-act="edit">edit</button>
+                  <button data-act="delete">delete</button>
+                </div>
+              </li>`).join("")
+          : `<li class="muted">no links</li>`;
+        $("#links").querySelectorAll("button").forEach((b) => b.addEventListener("click", onAction));
+      }
+
+      async function onCreate(e) {
+        e.preventDefault();
+        const f = e.target;
+        try {
+          const link = await api("POST", "/api/links", { url: f.url.value, key: f.key.value });
+          f.reset();
+          await navigator.clipboard.writeText(shortUrl(link.key)).catch(() => {});
+          status(`created ${shortUrl(link.key)} (copied)`, "ok");
+          await load();
+        } catch (err) {
+          status(err.message, "error");
+        }
+      }
+
+      async function onUpload(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        status(`uploading ${file.name}…`);
+        try {
+          const contentType = file.type || "application/octet-stream";
+          const up = await api("POST", "/api/uploads", { filename: file.name, content_type: contentType });
+          const put = await fetch(up.upload_url, { method: "PUT", headers: { "Content-Type": contentType }, body: file });
+          if (!put.ok) throw new Error(`upload failed (${put.status})`);
+          const f = $("#create");
+          f.url.value = up.public_url;
+          if (!f.key.value) f.key.value = file.name.replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+          status("uploaded. pick a key and hit shorten.", "ok");
+        } catch (err) {
+          status(err.message, "error");
+        } finally {
+          e.target.value = "";
+        }
+      }
+
+      async function onAction(e) {
+        const li = e.target.closest("li");
+        const key = li.dataset.key;
+        const link = LINKS.find((l) => l.key === key);
+        const path = `/api/links/${key.split("/").map(encodeURIComponent).join("/")}`;
+        const act = e.target.dataset.act;
+
+        if (act === "copy") {
+          await navigator.clipboard.writeText(shortUrl(key));
+          e.target.textContent = "copied!";
+          setTimeout(() => (e.target.textContent = "copy"), 1000);
+        } else if (act === "delete") {
+          if (!confirm(`Delete ${shortUrl(key)}? Anyone using it will get a 404.`)) return;
+          try { await api("DELETE", path); await load(); } catch (err) { status(err.message, "error"); }
+        } else if (act === "edit") {
+          if (li.querySelector("form")) return;
+          const form = document.createElement("form");
+          form.className = "row";
+          form.innerHTML = `
+            <input name="key" value="${esc(link.key)}" required />
+            <input name="url" value="${esc(link.url)}" required />
+            <button>save</button><button type="button" data-cancel>cancel</button>`;
+          form.querySelector("[data-cancel]").onclick = () => form.remove();
+          form.onsubmit = async (ev) => {
+            ev.preventDefault();
+            try {
+              await api("PUT", path, { key: form.key.value, url: form.url.value });
+              status("saved", "ok");
+              await load();
+            } catch (err) {
+              status(err.message, "error");
+            }
+          };
+          li.appendChild(form);
+        }
+      }
+
+      init().catch((err) => ($("#app").textContent = "error: " + err.message));
     </script>
   </body>
 </html>

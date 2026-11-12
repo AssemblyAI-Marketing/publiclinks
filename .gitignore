@@ -6,3 +6,6 @@ __pycache__/
 venv/
 *.db
 .DS_Store
+dub_export.json
+.vercel
+.env*

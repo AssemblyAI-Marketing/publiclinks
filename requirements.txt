@@ -1,8 +1,7 @@
-fastapi==0.109.0
-uvicorn[standard]==0.27.0
-python-multipart==0.0.6
-httpx==0.26.0
-boto3==1.34.25
-authlib==1.3.0
-itsdangerous==2.1.2
-python-dotenv==1.0.0
+fastapi==0.115.6
+authlib==1.3.2
+itsdangerous==2.2.0
+httpx==0.28.1
+boto3==1.35.90
+psycopg[binary]==3.2.3
+python-dotenv==1.0.1
